@@ -1,0 +1,6 @@
+{
+  "name": "Mobile Number Inventory & Allocation Manager",
+  "description": "Modern, responsive mobile number inventory management dashboard with Google Sheets & Apps Script backend, employee allocation, return workflows, assignment history, and free GitHub Pages deployment support.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

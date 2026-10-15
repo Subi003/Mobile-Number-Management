@@ -1,0 +1,231 @@
+import { MobileRecord, AssignmentHistory } from '../types';
+
+export const INITIAL_MOBILE_RECORDS: MobileRecord[] = [
+  {
+    id: 'rec-001',
+    phoneNumber: '+1 (555) 234-8901',
+    carrier: 'Verizon',
+    simNumber: '8901410321111851001',
+    planType: 'Unlimited 5G Business',
+    monthlyCost: 45,
+    status: 'assigned',
+    assignedTo: 'Sarah Jenkins',
+    employeeId: 'EMP-1042',
+    department: 'Sales',
+    assignmentDate: '2026-01-15',
+    purpose: 'Enterprise Client Accounts & Field Sales',
+    notes: 'Assigned with iPhone 14 Pro, international roaming enabled.',
+    createdAt: '2025-12-01',
+    updatedAt: '2026-01-15'
+  },
+  {
+    id: 'rec-002',
+    phoneNumber: '+1 (555) 345-9012',
+    carrier: 'AT&T',
+    simNumber: '8901410321111851002',
+    planType: 'Business Pro 50GB',
+    monthlyCost: 40,
+    status: 'assigned',
+    assignedTo: 'Marcus Vance',
+    employeeId: 'EMP-2033',
+    department: 'IT Operations',
+    assignmentDate: '2026-02-10',
+    purpose: 'On-Call Incident Commander',
+    notes: 'Primary 24/7 hotline for critical tier-1 outages.',
+    createdAt: '2025-12-05',
+    updatedAt: '2026-02-10'
+  },
+  {
+    id: 'rec-003',
+    phoneNumber: '+1 (555) 456-0123',
+    carrier: 'T-Mobile',
+    simNumber: '8901410321111851003',
+    planType: 'Magenta Business Unlimited',
+    monthlyCost: 35,
+    status: 'available',
+    notes: 'Checked and tested by IT Helpdesk; ready for deployment.',
+    createdAt: '2026-01-10',
+    updatedAt: '2026-03-01'
+  },
+  {
+    id: 'rec-004',
+    phoneNumber: '+1 (555) 567-1234',
+    carrier: 'Verizon',
+    simNumber: '8901410321111851004',
+    planType: 'Unlimited 5G Business',
+    monthlyCost: 45,
+    status: 'assigned',
+    assignedTo: 'Elena Rostova',
+    employeeId: 'EMP-3091',
+    department: 'Executive',
+    assignmentDate: '2026-01-20',
+    purpose: 'Chief Operating Officer line',
+    notes: 'Direct VIP line with encrypted messaging priority.',
+    createdAt: '2025-11-20',
+    updatedAt: '2026-01-20'
+  },
+  {
+    id: 'rec-005',
+    phoneNumber: '+1 (555) 678-2345',
+    carrier: 'AT&T',
+    simNumber: '8901410321111851005',
+    planType: 'Business Pro 25GB',
+    monthlyCost: 30,
+    status: 'available',
+    notes: 'Returned by former contractor. Sanitized and ready.',
+    createdAt: '2025-10-15',
+    updatedAt: '2026-03-12'
+  },
+  {
+    id: 'rec-006',
+    phoneNumber: '+1 (555) 789-3456',
+    carrier: 'Vodafone',
+    simNumber: '8901410321111851006',
+    planType: 'Global Enterprise Roam',
+    monthlyCost: 65,
+    status: 'reserved',
+    assignedTo: 'Dr. Liam Chen',
+    employeeId: 'EMP-4012',
+    department: 'Engineering',
+    purpose: 'Tokyo Data Center Expansion Project',
+    notes: 'Reserved for deployment starting next month.',
+    createdAt: '2026-02-01',
+    updatedAt: '2026-03-15'
+  },
+  {
+    id: 'rec-007',
+    phoneNumber: '+1 (555) 890-4567',
+    carrier: 'T-Mobile',
+    simNumber: '8901410321111851007',
+    planType: 'Business Pro 50GB',
+    monthlyCost: 35,
+    status: 'assigned',
+    assignedTo: 'Aisha Patel',
+    employeeId: 'EMP-1150',
+    department: 'Customer Support',
+    assignmentDate: '2026-03-01',
+    purpose: 'VIP Support Escalation Lead',
+    notes: 'Handles high-priority customer escalations.',
+    createdAt: '2026-02-15',
+    updatedAt: '2026-03-01'
+  },
+  {
+    id: 'rec-008',
+    phoneNumber: '+1 (555) 901-5678',
+    carrier: 'Verizon',
+    simNumber: '8901410321111851008',
+    planType: 'Unlimited 5G Business',
+    monthlyCost: 45,
+    status: 'available',
+    notes: 'Spare SIM card in Central Office safe.',
+    createdAt: '2026-03-01',
+    updatedAt: '2026-03-01'
+  },
+  {
+    id: 'rec-009',
+    phoneNumber: '+1 (555) 012-6789',
+    carrier: 'EE / BT',
+    simNumber: '8901410321111851009',
+    planType: 'UK Corporate Voice & Data',
+    monthlyCost: 38,
+    status: 'maintenance',
+    notes: 'Pending eSIM re-provisioning after SIM swap error.',
+    createdAt: '2026-01-05',
+    updatedAt: '2026-03-20'
+  },
+  {
+    id: 'rec-010',
+    phoneNumber: '+1 (555) 123-7890',
+    carrier: 'Airtel Business',
+    simNumber: '8901410321111851010',
+    planType: 'APAC Regional Plan',
+    monthlyCost: 28,
+    status: 'assigned',
+    assignedTo: 'Rahul Sharma',
+    employeeId: 'EMP-5021',
+    department: 'Field Logistics',
+    assignmentDate: '2026-02-18',
+    purpose: 'Fleet Dispatch & Regional Warehousing',
+    notes: 'Ruggedized field phone assigned.',
+    createdAt: '2026-01-22',
+    updatedAt: '2026-02-18'
+  }
+];
+
+export const INITIAL_ASSIGNMENT_HISTORY: AssignmentHistory[] = [
+  {
+    id: 'hist-001',
+    phoneNumber: '+1 (555) 234-8901',
+    action: 'assigned',
+    employeeName: 'Sarah Jenkins',
+    employeeId: 'EMP-1042',
+    department: 'Sales',
+    assignmentDate: '2026-01-15',
+    purpose: 'Enterprise Client Accounts & Field Sales',
+    notes: 'Assigned for nationwide travel and Q1 accounts.',
+    timestamp: '2026-01-15T09:30:00Z'
+  },
+  {
+    id: 'hist-002',
+    phoneNumber: '+1 (555) 678-2345',
+    action: 'returned',
+    employeeName: 'Tom Bradley',
+    employeeId: 'EMP-0921',
+    department: 'Sales',
+    assignmentDate: '2025-10-20',
+    returnDate: '2026-03-12',
+    purpose: 'Regional Sales Representative',
+    notes: 'Contract completed. Device and physical SIM card handed back in pristine state.',
+    timestamp: '2026-03-12T16:45:00Z'
+  },
+  {
+    id: 'hist-003',
+    phoneNumber: '+1 (555) 345-9012',
+    action: 'assigned',
+    employeeName: 'Marcus Vance',
+    employeeId: 'EMP-2033',
+    department: 'IT Operations',
+    assignmentDate: '2026-02-10',
+    purpose: 'On-Call Incident Commander',
+    notes: 'Transferred from previous on-call rotation lead.',
+    timestamp: '2026-02-10T11:00:00Z'
+  },
+  {
+    id: 'hist-004',
+    phoneNumber: '+1 (555) 890-4567',
+    action: 'assigned',
+    employeeName: 'Aisha Patel',
+    employeeId: 'EMP-1150',
+    department: 'Customer Support',
+    assignmentDate: '2026-03-01',
+    purpose: 'VIP Support Escalation Lead',
+    notes: 'Provisioned for executive tier resolution channel.',
+    timestamp: '2026-03-01T08:15:00Z'
+  }
+];
+
+export const POPULAR_CARRIERS = [
+  'Verizon',
+  'AT&T',
+  'T-Mobile',
+  'Vodafone',
+  'EE / BT',
+  'Airtel',
+  'Jio',
+  'Orange',
+  'Claro',
+  'Other'
+];
+
+export const DEPARTMENTS = [
+  'Sales',
+  'Engineering',
+  'IT Operations',
+  'Customer Support',
+  'Executive',
+  'Field Logistics',
+  'Human Resources',
+  'Finance & Legal',
+  'Marketing',
+  'Security'
+];
