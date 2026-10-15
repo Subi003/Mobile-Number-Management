@@ -197,11 +197,11 @@ function initSheetsIfMissing() {
 function seedSampleData(sheet) {
   var now = new Date().toISOString().split("T")[0];
   var samples = [
-    ["num-1", "+1 (555) 234-5678", "Verizon", "8901410321111851072", "Unlimited 5G", 45, "assigned", "Sarah Jenkins", "EMP-1042", "Sales", now, "Client Meetings & Field Sales", "Corporate iPhone 14 assigned", now, now],
-    ["num-2", "+1 (555) 345-6789", "AT&T", "8901410321111851073", "Business Pro 50GB", 40, "assigned", "David Kim", "EMP-1088", "Engineering", now, "On-call Production Incident Response", "Primary SRE hotline", now, now],
-    ["num-3", "+1 (555) 456-7890", "T-Mobile", "8901410321111851074", "Unlimited Elite", 35, "available", "", "", "", "", "", "SIM tested and ready to allocate", now, now],
-    ["num-4", "+1 (555) 567-8901", "Verizon", "8901410321111851075", "Unlimited 5G", 45, "available", "", "", "", "", "", "New batch from carrier", now, now],
-    ["num-5", "+1 (555) 678-9012", "Vodafone", "8901410321111851076", "Global Roaming", 60, "reserved", "Elena Rostova", "EMP-2015", "Executive", "", "International Summit Q4", "Hold for London branch transfer", now, now]
+    ["num-1", "'+1 (555) 234-5678", "Verizon", "8901410321111851072", "Unlimited 5G", 45, "assigned", "Sarah Jenkins", "EMP-1042", "Sales", now, "Client Meetings & Field Sales", "Corporate iPhone 14 assigned", now, now],
+    ["num-2", "'+1 (555) 345-6789", "AT&T", "8901410321111851073", "Business Pro 50GB", 40, "assigned", "David Kim", "EMP-1088", "Engineering", now, "On-call Production Incident Response", "Primary SRE hotline", now, now],
+    ["num-3", "'+1 (555) 456-7890", "T-Mobile", "8901410321111851074", "Unlimited Elite", 35, "available", "", "", "", "", "", "SIM tested and ready to allocate", now, now],
+    ["num-4", "'+1 (555) 567-8901", "Verizon", "8901410321111851075", "Unlimited 5G", 45, "available", "", "", "", "", "", "New batch from carrier", now, now],
+    ["num-5", "'+1 (555) 678-9012", "Vodafone", "8901410321111851076", "Global Roaming", 60, "reserved", "Elena Rostova", "EMP-2015", "Executive", "", "International Summit Q4", "Hold for London branch transfer", now, now]
   ];
   for (var i = 0; i < samples.length; i++) {
     sheet.appendRow(samples[i]);
@@ -228,7 +228,7 @@ function fetchAllNumbers() {
 
     records.push({
       id: row[0] ? row[0].toString() : "id-" + r,
-      phoneNumber: row[1] ? row[1].toString() : "",
+      phoneNumber: row[1] ? row[1].toString().replace(/^'/, "") : "",
       carrier: row[2] ? row[2].toString() : "Standard",
       simNumber: row[3] ? row[3].toString() : "",
       planType: row[4] ? row[4].toString() : "",
@@ -297,9 +297,14 @@ function saveNumberRecord(record) {
     }
   }
 
+  var phoneValue = record.phoneNumber ? record.phoneNumber.toString() : "";
+  if (phoneValue.charAt(0) === "+" || phoneValue.charAt(0) === "=") {
+    phoneValue = "'" + phoneValue;
+  }
+
   var rowData = [
     record.id || ("num-" + Date.now()),
-    record.phoneNumber,
+    phoneValue,
     record.carrier || "Standard",
     record.simNumber || "",
     record.planType || "Standard Voice/Data",

@@ -25,20 +25,41 @@ export const formatPhoneNumber = (phone: string): string => {
   return phone;
 };
 
+export const DEFAULT_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzvGdKuu9bLSfscsXGOXJhlYxqVK8xrImftdov-hwDz0-GBHBi6gWkXS9bIt16ADyJw/exec';
+
+export const cleanPhoneFromSheet = (phone: any): string => {
+  if (!phone) return '';
+  const str = phone.toString().trim();
+  if (str === '#ERROR!' || str === '#VALUE!') return '';
+  return str.replace(/^'/, '');
+};
+
+export const formatPhoneForSheet = (phone: string): string => {
+  if (!phone) return '';
+  const trimmed = phone.trim();
+  if (trimmed.startsWith('+') || trimmed.startsWith('=')) {
+    return "'" + trimmed;
+  }
+  return trimmed;
+};
+
 export const getStoredConfig = (): GoogleSheetsConfig => {
   try {
     const raw = localStorage.getItem(STORAGE_KEYS.CONFIG);
     if (raw) {
-      return JSON.parse(raw);
+      const parsed = JSON.parse(raw);
+      if (parsed.scriptUrl) {
+        return parsed;
+      }
     }
   } catch (e) {
     console.error('Failed reading sheets config', e);
   }
   return {
-    scriptUrl: '',
+    scriptUrl: DEFAULT_SCRIPT_URL,
     apiToken: 'admin123',
-    isConnected: false,
-    useDemoData: true
+    isConnected: true,
+    useDemoData: false
   };
 };
 
@@ -150,11 +171,15 @@ export const fetchInventoryRecords = async (
       const json = await res.json();
 
       if (json.success && Array.isArray(json.data)) {
+        const sanitizedRecords: MobileRecord[] = json.data.map((r: any) => ({
+          ...r,
+          phoneNumber: cleanPhoneFromSheet(r.phoneNumber) || r.phoneNumber
+        }));
         // Also cache to local storage for offline resilience
-        setLocalRecords(json.data);
+        setLocalRecords(sanitizedRecords);
         return {
           success: true,
-          records: json.data,
+          records: sanitizedRecords,
           fromGoogleSheets: true
         };
       } else {
@@ -225,7 +250,10 @@ export const saveMobileRecord = async (
     try {
       const payload = {
         action: 'saveNumber',
-        record: recordToSave,
+        record: {
+          ...recordToSave,
+          phoneNumber: formatPhoneForSheet(recordToSave.phoneNumber)
+        },
         apiToken: config.apiToken
       };
 
@@ -484,7 +512,11 @@ export const fetchHistoryRecords = async (
       if (res.ok) {
         const json = await res.json();
         if (json.success && Array.isArray(json.data)) {
-          return json.data;
+          const sanitized = json.data.map((h: any) => ({
+            ...h,
+            phoneNumber: cleanPhoneFromSheet(h.phoneNumber) || h.phoneNumber
+          }));
+          return sanitized;
         }
       }
     } catch (e) {
