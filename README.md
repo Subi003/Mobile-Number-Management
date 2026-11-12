@@ -21,7 +21,6 @@ Powered by **React + TypeScript + Tailwind CSS** on the frontend, with **Google 
 
 ---
 
-
 ## 🚀 2-Minute Google Sheets Backend Setup
 
 1. Open a new Google Sheet at **[sheets.new](https://sheets.new)** and give it a title (e.g., *Company Mobile Inventory*).
