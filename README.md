@@ -8,6 +8,7 @@ Powered by **React + TypeScript + Tailwind CSS** on the frontend, with **Google 
 
 ## 🌟 Key Features
 
+
 - **Executive KPI Dashboard**: Live metrics for Total Numbers, Available Numbers, Assigned Numbers, Reserved/Maintenance, and Monthly Cellular Spend ($).
 - **CRUD Inventory Operations**: Add new mobile numbers, edit telecom plan parameters, update carrier details, and delete obsolete numbers.
 - **Duplicate Prevention**: Strict validation ensures no duplicate phone numbers can be created either locally or in Google Sheets.
